@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONLY JOY | Instant Web Gaming Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #05070d; color: #ffffff; overflow-x: hidden; }
+
+        /* Notice Wrapper */
+        .notice-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 15px auto;
+            padding: 0 15px;
+        }
+        .notice-ticker {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.95), rgba(45, 10, 30, 0.95));
+            border: 1px solid rgba(255, 0, 85, 0.6);
+            padding: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+        }
+        .notice-badge {
+            background: linear-gradient(135deg, #ff0055, #ff3300);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-right: 12px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: livePulse 1s infinite alternate;
+        }
+        .ticker-content { width: 100%; overflow: hidden; }
+        .ticker-content marquee { color: #f1f1f1; font-size: 15px; font-weight: 500; }
+        .highlight-text { color: #00ffcc; font-weight: bold; text-shadow: 0 0 8px rgba(0, 255, 204, 0.6); }
+
+        @keyframes livePulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 0.4; }
+        }
+
+        /* Navigation */
+        header {
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(0, 255, 204, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-area img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #00ffcc;
+            object-fit: cover;
+            box-shadow: 0 0 12px rgba(0, 255, 204, 0.6);
+        }
+        .logo { font-size: 26px; font-weight: 800; color: #00ffcc; letter-spacing: 2px; text-transform: uppercase; }
+        .user-wallet-badge {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid #00ffcc;
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #00ffcc;
+            font-size: 15px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 6%;
+            background: radial-gradient(circle at center, #111b33 0%, #05070d 70%);
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-content { flex: 1; min-width: 300px; }
+        .hero-content h1 {
+            font-size: clamp(34px, 5vw, 50px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        .hero-content h1 span { color: #00ffcc; text-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
+        .hero-content p { color: #a0a0c0; font-size: 16px; margin-bottom: 25px; line-height: 1.6; }
+
+        .btn-play {
+            display: inline-block;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #ff007f 0%, #9d4edd 100%);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+            transition: 0.3s;
+        }
+        .btn-play:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(255, 0, 127, 0.7); }
+
+        .hero-image { flex: 1; min-width: 300px; display: flex; justify-content: center; }
+        .gaming-logo {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 85, 0.5));
+            transition: transform 0.3s ease;
+        }
+        .gaming-logo:hover { transform: scale(1.03); }
+
+        /* Ad Banner Section */
+        .ad-container {
+            max-width: 1150px;
+            margin: 25px auto;
+            padding: 15px;
+            background: rgba(15, 15, 30, 0.8);
+            border: 1px dashed rgba(255, 0, 85, 0.4);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .ad-label { font-size: 11px; color: #718096; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .ad-box { background: #1a202c; color: #cbd5e0; padding: 25px; border-radius: 6px; font-weight: 600; font-size: 14px; }
+
+        /* Games Section */
+        .games-section { padding: 40px 5%; text-align: center; }
+        .section-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
+        .section-title span { color: #00ffcc; }
+        .section-desc { color: #a0a0c0; margin-bottom: 40px; font-size: 15px; }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .game-card {
+            background: rgba(18, 26, 48, 0.85);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 14px;
+            overflow: hidden;
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .game-card:hover { transform: translateY(-5px); border-color: #00ffcc; box-shadow: 0 8px 25px rgba(0, 255, 204, 0.25); }
+        
+        .game-thumb {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            background: #0f172a;
+        }
+
+        .game-info { padding: 12px; }
+        .game-card h3 { font-size: 16px; margin-bottom: 4px; color: #fff; }
+        .game-card p { color: #a0a0c0; font-size: 12px; margin-bottom: 15px; }
+
+        .btn-card {
+            display: block;
+            width: calc(100% - 24px);
+            margin: 0 12px 14px 12px;
+            padding: 10px;
+            background: linear-gradient(135deg, #00ffcc 0%, #00b4d8 100%);
+            color: #05070d;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .btn-card:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(0, 255, 204, 0.6); }
+
+        /* Footer */
+        footer {
+            background-color: #030408;
+            padding: 30px 20px;
+            text-align: center;
+            color: #8999b3;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        footer span { color: #00ffcc; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <!-- Running Notice Bar -->
+    <div class="notice-wrapper">
+        <div class="notice-ticker">
+            <div class="notice-badge">
+                <span class="pulse-dot"></span> ⚡ LIVE UPDATE
+            </div>
+            <div class="ticker-content">
+                <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    🔥 বিশাল সুখবর! 🎮 অ্যাকাউন্ট রেজিস্টার বা <span class="highlight-text">লগইন করলেই ইনস্ট্যান্ট পেয়ে যান ২৫০ টাকা বোনাস!</span> 💸 কোনো ইনস্টল ছাড়াই সরাসরি ব্রাউজারে গেম খেলুন, ভিডিও দেখে কয়েন জমান এবং রিওয়ার্ড রিডিম করুন। 🚀
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Wallet Counter -->
+    <header>
+        <div class="logo-area">
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=100&h=100&fit=crop" alt="Ninja Logo">
+            <div class="logo">JOY</div>
+        </div>
+        <div class="user-wallet-badge">
+             🎁 <span id="coin-count">250</span> টাকা বোনাস
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>JOY</span> Gaming Arena</h1>
+            <p>অফিশিয়াল লোগো সহ পছন্দের সব ব্রাউজার গেম এখানে উপলব্ধ। কোনো ইনস্টল ছাড়াই সরাসরি খেলুন এবং রিওয়ার্ড জিতুন!</p>
+            <a href="#games" class="btn-play">Explore All Games</a>
+        </div>
+        <div class="hero-image">
+            <img src="Neon Crowned Gamer Emblem.png" alt="JOY GAMING Logo" class="gaming-logo">[cite: 2]
+        </div>
+    </section>
+
+    <!-- Ad Banner Space -->
+    <div class="ad-container">
+        <div class="ad-label">Sponsored Advertisement</div>
+        <div class="ad-box">
+            📢 এখানে আপনার অ্যাড নেটওয়ার্কের ব্যানার অ্যাড কোড যুক্ত করতে পারবেন।
+        </div>
+    </div>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games">
+        <h2 class="section-title">Official Logo <span>Instant Games</span></h2>
+        <p class="section-desc">যেকোনো গেমে ক্লিক করুন, সরাসরি ব্রাউজারে খেলা শুরু হবে</p>
+        
+        <div class="games-grid">
+            <!-- 1. Temple Run 2 -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500&h=500&fit=crop" alt="Temple Run 2" class="game-thumb">
+                <div class="game-info">
+                    <h3>Temple Run 2</h3>
+                    <p>Browser Runner</p>
+                </div>
+                <a href="https://www.poki.com/en/g/temple-run-2" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+
+            <!-- 2. Ludo Hero -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=500&h=500&fit=crop" alt="Ludo Hero" class="game-thumb">
+                <div class="game-info">
+                    <h3>Ludo Hero</h3>
+                    <p>Board / Casual</p>
+                </div>
+                <a href="https://www.poki.com/en/g/ludo-hero" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+
+            <!-- 3. Moto X3M -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=500&h=500&fit=crop" alt="Moto X3M" class="game-thumb">
+                <div class="game-info">
+                    <h3>Moto X3M</h3>
+                    <p>Bike Stunt</p>
+                </div>
+                <a href="https://www.poki.com/en/g/moto-x3m" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+
+            <!-- 4. Subway Surfers -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&h=500&fit=crop" alt="Subway Surfers" class="game-thumb">
+                <div class="game-info">
+                    <h3>Subway Surfers</h3>
+                    <p>Metro Runner</p>
+                </div>
+                <a href="https://www.poki.com/en/g/subway-surfers" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+
+            <!-- 5. 8 Ball Pool -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=500&h=500&fit=crop" alt="8 Ball Pool" class="game-thumb">
+                <div class="game-info">
+                    <h3>8 Ball Pool</h3>
+                    <p>Billiards</p>
+                </div>
+                <a href="https://www.miniclip.com/games/8-ball-pool/" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+
+            <!-- 6. Who Is? Brain Puzzle -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=500&h=500&fit=crop" alt="Who Is" class="game-thumb">
+                <div class="game-info">
+                    <h3>Who Is? Brain</h3>
+                    <p>Puzzle Game</p>
+                </div>
+                <a href="https://www.poki.com/en/g/who-is" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+
+            <!-- 7. Stickman Hook -->
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&h=500&fit=crop" alt="Stickman Hook" class="game-thumb">
+                <div class="game-info">
+                    <h3>Stickman Hook</h3>
+                    <p>Arcade Action</p>
+                </div>
+                <a href="https://www.poki.com/en/g/stickman-hook" target="_blank" class="btn-card">Play Direct</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>JOY Gaming</span>. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
